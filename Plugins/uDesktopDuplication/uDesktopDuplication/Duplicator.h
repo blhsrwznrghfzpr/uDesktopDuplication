@@ -51,6 +51,13 @@ public:
         Metadata metaData;
     };
 
+    struct FrameSnapshot
+    {
+        UINT id = 0;
+        Microsoft::WRL::ComPtr<ID3D11Texture2D> texture = nullptr;
+        HANDLE textureHandle = nullptr;
+    };
+
     explicit Duplicator(Monitor* monitor);
     ~Duplicator();
     void Start();
@@ -62,6 +69,7 @@ public:
     Microsoft::WRL::ComPtr<ID3D11Device> GetDevice();
     Microsoft::WRL::ComPtr<IDXGIOutputDuplication> GetDuplication();
     const Frame& GetLastFrame() const;
+    FrameSnapshot CopyLastFrameSnapshot() const;
 
 private:
     void InitializeDevice();

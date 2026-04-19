@@ -229,8 +229,19 @@ ComPtr<IDXGIOutputDuplication> Duplicator::GetDuplication()
 
 const Duplicator::Frame& Duplicator::GetLastFrame() const
 {
-    std::lock_guard<std::mutex> lock(mutex_);
     return lastFrame_;
+}
+
+
+Duplicator::FrameSnapshot Duplicator::CopyLastFrameSnapshot() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return FrameSnapshot
+    {
+        lastFrame_.id,
+        lastFrame_.texture,
+        lastFrame_.textureHandle
+    };
 }
 
 

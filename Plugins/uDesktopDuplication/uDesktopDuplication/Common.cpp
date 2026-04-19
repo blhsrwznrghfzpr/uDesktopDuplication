@@ -15,6 +15,7 @@ using namespace Microsoft::WRL;
 extern IUnityInterfaces* g_unity;
 extern std::unique_ptr<MonitorManager> g_manager;
 extern std::queue<Message> g_messages;
+extern std::mutex g_messageMutex;
 
 
 void OutputWindowsInformation()
@@ -85,6 +86,7 @@ LUID GetUnityAdapterLuid()
 
 void SendMessageToUnity(Message message)
 {
+    std::lock_guard<std::mutex> lock(g_messageMutex);
     g_messages.push(message);
 }
 

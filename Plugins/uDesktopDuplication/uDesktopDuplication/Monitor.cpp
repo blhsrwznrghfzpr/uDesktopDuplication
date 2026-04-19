@@ -98,7 +98,7 @@ void Monitor::Render()
 {
     UDD_FUNCTION_SCOPE_TIMER
 
-    const auto& frame = duplicator_->GetLastFrame();
+    const auto frame = duplicator_->CopyLastFrameSnapshot();
 
     if (frame.id == lastFrameId_) return;
     lastFrameId_ = frame.id;
@@ -223,7 +223,7 @@ HANDLE Monitor::GetSharedTextureHandle() const
 {
     UDD_FUNCTION_SCOPE_TIMER
 
-    const auto& frame = duplicator_->GetLastFrame();
+    const auto frame = duplicator_->CopyLastFrameSnapshot();
     return frame.textureHandle;
 }
 
